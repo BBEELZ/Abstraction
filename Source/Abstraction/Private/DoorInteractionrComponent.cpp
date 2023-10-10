@@ -3,6 +3,9 @@
 
 #include "DoorInteractionrComponent.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/PlayerController.h"
+#include "Engine/TriggerBox.h"
+#include "Engine/World.h"
 
 // Sets default values for this component's properties
 UDoorInteractionrComponent::UDoorInteractionrComponent()
@@ -35,10 +38,17 @@ void UDoorInteractionrComponent::TickComponent(float DeltaTime, ELevelTick TickT
 	
 	if (CurrentRotationTime < TimeToRotate)
 	{
-		CurrentRotationTime += DeltaTime;
-		const float RotationAlpha = FMath::Clamp(CurrentRotationTime / TimeToRotate, 0.0f, 1.0f);
-		const FRotator CurrentRotation = FMath::Lerp(StartRotation, FinalRotation, RotationAlpha);
-		GetOwner()->SetActorRotation(CurrentRotation);
+		if (TriggerBox && GetWorld() && GetWorld()->GetFirstLocalPlayerFromController())
+		{
+			APawn* PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
+			if (PlayerPawn && TriggerBox->IsOverlappingActor(PlayerPawn))
+			{
+				CurrentRotationTime += DeltaTime;
+				const float RotationAlpha = FMath::Clamp(CurrentRotationTime / TimeToRotate, 0.0f, 1.0f);
+				const FRotator CurrentRotation = FMath::Lerp(StartRotation, FinalRotation, RotationAlpha);
+				GetOwner()->SetActorRotation(CurrentRotation);
+			}
+		}
 	}
 }
 

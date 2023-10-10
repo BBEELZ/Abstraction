@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "DoorInteractionrComponent.generated.h"
 
+class ATriggerBox;
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ABSTRACTION_API UDoorInteractionrComponent : public UActorComponent
@@ -33,4 +35,7 @@ protected:
 	float TimeToRotate = 1.0f;
 
 	float CurrentRotationTime = 0.0f;
+
+	UPROPERTY(EditAnywhere)
+	ATriggerBox* TriggerBox;
 };
