@@ -16,13 +16,21 @@ public:
 	// Sets default values for this component's properties
 	UDoorInteractionrComponent();
 
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UPROPERTY(EditAnywhere)
+	FRotator DesiredRotation = FRotator::ZeroRotator;
 
-		
+	FRotator StartRotation = FRotator::ZeroRotator;
+	FRotator FinalRotation = FRotator::ZeroRotator;
+
+	UPROPERTY(EditAnywhere)
+	float TimeToRotate = 1.0f;
+
+	float CurrentRotationTime = 0.0f;
 };
