@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Curves/CurveFloat.h"
 #include "DoorInteractionrComponent.generated.h"
 
 class ATriggerBox;
@@ -38,4 +39,11 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	ATriggerBox* TriggerBox;
+
+	UPROPERTY(EditAnywhere)
+	ATriggerBox* TriggerBox2;
+
+	UPROPERTY(EditAnywhere)
+	FRuntimeFloatCurve OpenCurve;
+
 };
