@@ -41,9 +41,6 @@ protected:
 	ATriggerBox* TriggerBox;
 
 	UPROPERTY(EditAnywhere)
-	ATriggerBox* TriggerBox2;
-
-	UPROPERTY(EditAnywhere)
 	FRuntimeFloatCurve OpenCurve;
 
 };
