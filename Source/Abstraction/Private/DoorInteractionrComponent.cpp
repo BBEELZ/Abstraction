@@ -49,7 +49,8 @@ void UDoorInteractionrComponent::TickComponent(float DeltaTime, ELevelTick TickT
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	
-	if (CurrentRotationTime < TimeToRotate)
+	//if (CurrentRotationTime < TimeToRotate)
+	if (DoorState == EDoorState::DS_Closed)
 	{
 		if (TriggerBox && GetWorld() && GetWorld()->GetFirstLocalPlayerFromController())
 		{
