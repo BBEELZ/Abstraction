@@ -3,6 +3,7 @@
 
 #include "AbstractionGameModeBase.h"
 #include "ObjectiveWorldSubsystem.h"
+#include "ObjectiveHUD.h"
 
 void AAbstractionGameModeBase::StartPlay()
 {
@@ -10,7 +11,7 @@ void AAbstractionGameModeBase::StartPlay()
 	UObjectiveWorldSubsystem* ObjectiveWorldSubsystem = GetWorld()->GetSubsystem<UObjectiveWorldSubsystem>();
 	if (ObjectiveWorldSubsystem)
 	{
-		ObjectiveWorldSubsystem->CreateObjectiveWidget(ObjectiveWidgetClass);
+		ObjectiveWorldSubsystem->CreateObjectiveWidgets();
 		ObjectiveWorldSubsystem->DisplayObjectiveWidget();
 	}
 }

@@ -31,6 +31,15 @@ UDoorInteractionrComponent::UDoorInteractionrComponent()
 	// ...
 }
 
+void UDoorInteractionrComponent::InteractionStart()
+{
+	Super::InteractionStart();
+	if (InteractingActor)
+	{
+		OpenDoor();
+	}
+}
+
 
 // Called when the game starts
 void UDoorInteractionrComponent::BeginPlay()
@@ -40,7 +49,17 @@ void UDoorInteractionrComponent::BeginPlay()
 	FinalRotation = GetOwner()->GetActorRotation() + DesiredRotation;
 	// ensure TimeToRotate is greater than EPSILON
 	CurrentRotationTime = 0.0f;
-	
+}
+
+void UDoorInteractionrComponent::OpenDoor()
+{
+	if (IsOpen() || DoorState == EDoorState::DS_Opening)
+	{
+		return;
+	}
+
+	DoorState = EDoorState::DS_Opening;
+	CurrentRotationTime = 0.0f;
 }
 
 
@@ -92,6 +111,9 @@ void UDoorInteractionrComponent::OnDoorOpen()
 		ObjectiveComponent->SetState(EObjectiveState::OS_Completed);
 	}
 	//GEngine->AddOnScreenDebugMessage(-1. 3.0f, FColor::Yellow, TEXT("DoorOpened"));
+
+	//tell any listeners that the interaction is successful
+	InteractionSuccess.Broadcast();
 }
 
 void UDoorInteractionrComponent::OnDebugToggled(IConsoleVariable* Var)

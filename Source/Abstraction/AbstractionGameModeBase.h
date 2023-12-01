@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Blueprint/UserWidget.h"
+#include "ObjectiveHUD.h"
 #include "AbstractionGameModeBase.generated.h"
+
 
 /**
  * 
@@ -19,4 +21,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UUserWidget> ObjectiveWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widgets")
+	TSubclassOf<UUserWidget> ObjectivesCompleteWidgetClass;
+
 };

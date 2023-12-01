@@ -5,6 +5,7 @@
 #include "Components/CapsuleComponent.h"
 #include "AbstractionPlayerCharacter.h"
 #include "GameFramework/DamageType.h"
+#include "DamageHandlerComponent.h"
 
 
 
@@ -33,12 +34,12 @@ void UDealDamageComponent::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 {
 	UE_LOG(LogTemp, Warning, TEXT("UDealDamageComponent::OnOverlapBegin"));
 
-	if (!bActive)
+	if (OtherActor == GetOwner())
 	{
 		return;
 	}
 
-	if (OtherActor == GetOwner())
+	if (!IsActive())
 	{
 		return;
 	}
@@ -46,10 +47,7 @@ void UDealDamageComponent::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 	AAbstractionPlayerCharacter* PlayerCharacter = Cast<AAbstractionPlayerCharacter>(OtherActor);
 	if (PlayerCharacter)
 	{
-		TSubclassOf<UDamageType> const ValidDamageTypeClass = TSubclassOf<UDamageType>(UDamageType::StaticClass());
-		FDamageEvent DamageEvent(ValidDamageTypeClass);
-
-		PlayerCharacter->TakeDamage(BaseDamage, DamageEvent, nullptr, GetOwner());
+		PlayerCharacter->SetOnFire(BaseDamage, DamageTotalTime, TakeDamageInterval);
 	}
 }
 
