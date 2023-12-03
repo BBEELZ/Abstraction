@@ -15,6 +15,6 @@ class ABSTRACTION_API UObjectiveHUD : public UUserWidget
 public:
 	void UpdateObjectiveText(uint32 ObjectivesCompleted, uint32 TotalObjectives);
 protected:
-	UPROPERTY(meta = (BindWidget))
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	UTextBlock* ObjectivesText;
 };

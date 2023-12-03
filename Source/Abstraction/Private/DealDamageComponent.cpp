@@ -8,6 +8,8 @@
 #include "DamageHandlerComponent.h"
 
 
+class AABstractionPlayerCharacter;
+class UParticleSystem;
 
 // Sets default values for this component's properties
 UDealDamageComponent::UDealDamageComponent()

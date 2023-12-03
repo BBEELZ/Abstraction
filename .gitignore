@@ -76,3 +76,7 @@ DerivedDataCache/*
 
 # ignore DeepElderCaves
 Content/DeepElderCaves/*
+
+# ignore AnimationStarterPack
+Content/AnimationStarterPack/*
+Content/AnimStarterPack/*

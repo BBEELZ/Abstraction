@@ -45,6 +45,7 @@ protected:
 	
 	TOptional<FDamageInfo> ActiveDamageInfo;
 
+	UPROPERTY(Transient)
 	AAbstractionPlayerCharacter* PlayerCharacter = nullptr;
 
 	// Holds a critical section object.

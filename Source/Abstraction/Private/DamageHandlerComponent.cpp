@@ -7,6 +7,9 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Misc/ScopeLock.h"
 
+class AABstractionPlayerCharacter;
+class UParticleSystem;
+
 // Sets default values for this component's properties
 UDamageHandlerComponent::UDamageHandlerComponent(const FObjectInitializer& ObjectInitializer)
 	:Super(ObjectInitializer)
