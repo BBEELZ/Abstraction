@@ -41,7 +41,7 @@ void UDealDamageComponent::OnOverlapBegin(class UPrimitiveComponent* OverlappedC
 		return;
 	}
 
-	if (!IsActive())
+	if (!IsEnabled())
 	{
 		return;
 	}

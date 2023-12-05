@@ -63,7 +63,7 @@ void UDamageHandlerComponent::TickComponent(float DeltaTime, ELevelTick TickType
 	}
 }
 
-void UDamageHandlerComponent::TakeFireDamage(float BaseDamage, float DamageTotoalTime, float TakeDamageInterval)
+void UDamageHandlerComponent::TakeFireDamage(float BaseDamage, float DamageTotalTime, float TakeDamageInterval)
 {
 	FScopeLock Lock(&CriticalSection);
 	if (ActiveDamageInfo.IsSet())

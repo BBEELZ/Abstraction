@@ -3,12 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbstractionPlayerCharacter.h"
 #include "Components/ActorComponent.h"
 #include "HAL/CriticalSection.h"
 #include "Misc/Optional.h"
 #include "DamageHandlerComponent.generated.h"
 
-class AABstractionPlayerCharacter;
+class AAbstractionPlayerCharacter;
 class UParticleSystem;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )

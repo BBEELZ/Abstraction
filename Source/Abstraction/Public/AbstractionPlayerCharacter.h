@@ -9,6 +9,7 @@
 
 class UHealthComponent;
 class UParticleSystemComponent;
+class UDamageHandlerComponent;
 
 DECLARE_MULTICAST_DELEGATE(FOnInteractionStart);
 DECLARE_MULTICAST_DELEGATE(FOnInteractionCancel);
@@ -34,10 +35,25 @@ public:
 	virtual void FellOutOfWorld(const class UDamageType& dmgType) override;
 
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser);
-	void SetOnFire(UParticleSystemComponent* FireParticleSystemComponent);
+	void SetOnFire(float BaseDamage, float DamageTotalTime, float TakeDamageInterval);
+
+	UFUNCTION(BlueprintCallable)
+	const bool IsAlive() const;
+
+	UFUNCTION(BlueprintCallable)
+	const float GetCurrentHealth() const;
 
 	FOnInteractionStart OnInteractionStart;
 	FOnInteractionCancel OnInteractionCancel;
+
+	UPROPERTY(VisibleAnywhere)
+	UHealthComponent* HealthComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	UDamageHandlerComponent* DamageHandlerComponent;
+
+	UPROPERTY(EditAnywhere)
+	UParticleSystemComponent* ParticleSystemComponent;
 
 protected:
 	// Called when the game starts or when spawned
@@ -45,10 +61,16 @@ protected:
 
 	void OnDeath(bool IsFellOut);
 
+	UFUNCTION()
+	void OnDeathTimerFinished();
+
 	//Input Bidnings
 	void StartInteraction();
 	void StopInteraction();
 
 	UPROPERTY(EditAnywhere)
-	UHealthComponent* HealthComponent;
+	float TimeRestartLevelAfterDeath = 2.0f;
+
+	//Handlet to manage the death timer
+	FTimerHandle RestartLevelTimerHandle;
 };
