@@ -7,6 +7,7 @@
 #include "AbstractionPlayerCharacter.generated.h"
 
 
+class UCameraShakeBase;
 class UHealthComponent;
 class UParticleSystemComponent;
 class UDamageHandlerComponent;
@@ -43,6 +44,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	const float GetCurrentHealth() const;
 
+	UFUNCTION(BlueprintCallable)
+	void HandleItemCollected();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void ItemCollected();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	int ItemsCollected = 0;
+
 	FOnInteractionStart OnInteractionStart;
 	FOnInteractionCancel OnInteractionCancel;
 
@@ -73,4 +83,15 @@ protected:
 
 	//Handlet to manage the death timer
 	FTimerHandle RestartLevelTimerHandle;
+
+	APlayerController* PC;
+
+	UPROPERTY(EditAnywhere, Category="Effects")
+	TSubclassOf<UCameraShakeBase> CamShake;
+
+	// Force Feedback
+	UPROPERTY(EditAnywhere, Category="ForceFeedback")
+	float ForceFeedbackIntensity = 1.0f;
+	UPROPERTY(EditAnywhere, Category = "ForceFeedback")
+	float ForceFeedbackDuration = 1.0f;
 };
