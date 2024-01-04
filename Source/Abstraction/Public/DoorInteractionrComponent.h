@@ -12,6 +12,9 @@
 
 class ATriggerBox;
 class IConsoleVariable;
+class UTextRenderComponent;
+class UAudioComponent;
+class UInteractionComponent;
 
 UENUM()
 enum class EDoorState
@@ -43,16 +46,22 @@ public:
 
 	FOpened OpenedEvent;
 
+	virtual void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) override;
+
+	virtual void OnOverlapEnd(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	//request to open the door
+	UFUNCTION(BlueprintCallable)
+	void OpenDoor();
+
+	void InteractionRequested();
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
 	//binded to interaction input from player
 	void InteractionStart() override;
-
-	//request to open the door
-	UFUNCTION(BlueprintCallable)
-	void OpenDoor();
 
 	//called internally when door has finished opening
 	void OnDoorOpen();
@@ -82,4 +91,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	EDoorState DoorState;
 
+	UPROPERTY(EditAnywhere)
+	UAudioComponent* AudioComponent;
+
+	UPROPERTY(EditAnywhere)
+	UTextRenderComponent* TextRenderComponent;
 };

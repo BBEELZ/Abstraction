@@ -34,13 +34,13 @@ public:
 
 	UCapsuleComponent* GetTriggerCapsule() const { return TriggerCapsule; }
 
+	UFUNCTION(BlueprintCallable)
+	virtual void InteractionStart();
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	UFUNCTION(BlueprintCallable)
-	virtual void InteractionStart();
 
 	UPROPERTY(EditAnywhere)
 	FText InteractionPrompt;
@@ -49,4 +49,6 @@ protected:
 	UCapsuleComponent* TriggerCapsule = nullptr;
 
 	AActor* InteractingActor = nullptr;	
+	bool bActive = true;
+	FDelegateHandle InteractionBinding;
 };

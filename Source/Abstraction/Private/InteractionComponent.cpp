@@ -4,6 +4,7 @@
 #include "AbstractionPlayerCharacter.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/CapsuleComponent.h"
 #include "DrawDebugHelpers.h"
 
 // Sets default values for this component's properties
@@ -13,7 +14,14 @@ UInteractionComponent::UInteractionComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+	// creating the trigger capsule
+	TriggerCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Trigger Capsule"));
+	//binding to events
+	TriggerCapsule->OnComponentBeginOverlap.AddDynamic(this, &UInteractionComponent::OnOverlapBegin);
+	TriggerCapsule->OnComponentEndOverlap.AddDynamic(this, &UInteractionComponent::OnOverlapEnd);
+
+	bActive = true;
+	InteractingActor = nullptr;
 }
 
 void UInteractionComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

@@ -56,6 +56,9 @@ public:
 	FOnInteractionStart OnInteractionStart;
 	FOnInteractionCancel OnInteractionCancel;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void DoorOpenInteractionStarted(AActor* InteractableActor);
+
 	UPROPERTY(VisibleAnywhere)
 	UHealthComponent* HealthComponent;
 
